@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hierarchical Scene - SVG</title>
+    <style>
+        svg {
+            display: block;
+            margin: 0 auto;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <svg id="scene" width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+        <!-- System 1 -->
+        <g id="system1" transform="translate(200, 300)">
+            <polygon points="0,0 -50,86.6 50,86.6" fill="purple"/>
+            <g id="arm1">
+                <line x1="-100" y1="0" x2="100" y2="0" stroke="red" stroke-width="10"/>
+                <polygon id="dodecagon1-1" points="" stroke="black" fill="none"/>
+                <polygon id="dodecagon1-2" points="" stroke="black" fill="none"/>
+            </g>
+        </g>
+        <!-- System 2 -->
+        <g id="system2" transform="translate(600, 300)">
+            <polygon points="0,0 -50,86.6 50,86.6" fill="blue"/>
+            <g id="arm2">
+                <line x1="-100" y1="0" x2="100" y2="0" stroke="red" stroke-width="10"/>
+                <polygon id="dodecagon2-1" points="" stroke="black" fill="none"/>
+                <polygon id="dodecagon2-2" points="" stroke="black" fill="none"/>
+            </g>
+        </g>
+        <!-- System 3 -->
+        <g id="system3" transform="translate(400, 100)">
+            <polygon points="0,0 -50,86.6 50,86.6" fill="green"/>
+            <g id="arm3">
+                <line x1="-100" y1="0" x2="100" y2="0" stroke="red" stroke-width="10"/>
+                <polygon id="dodecagon3-1" points="" stroke="black" fill="none"/>
+                <polygon id="dodecagon3-2" points="" stroke="black" fill="none"/>
+            </g>
+        </g>
+        <!-- Animations -->
+        <animateTransform xlink:href="#arm1" attributeName="transform" type="rotate" from="0" to="360" begin="0s" dur="10s" repeatCount="indefinite"/>
+        <animateTransform xlink:href="#arm2" attributeName="transform" type="rotate" from="0" to="360" begin="0s" dur="10s" repeatCount="indefinite"/>
+        <animateTransform xlink:href="#arm3" attributeName="transform" type="rotate" from="0" to="360" begin="0s" dur="10s" repeatCount="indefinite"/>
+    </svg>
+    <script>
+        function createDodecagon(radius) {
+            const points = [];
+            for (let i = 0; i < 12; i++) {
+                const theta = (i * 2 * Math.PI) / 12;
+                const x = radius * Math.cos(theta);
+                const y = radius * Math.sin(theta);
+                points.push(`${x},${y}`);
+            }
+            return points.join(" ");
+        }
+
+        document.getElementById("dodecagon1-1").setAttribute("points", createDodecagon(30));
+        document.getElementById("dodecagon1-2").setAttribute("points", createDodecagon(30));
+        document.getElementById("dodecagon1-1").setAttribute("transform", "translate(100, 0)");
+        document.getElementById("dodecagon1-2").setAttribute("transform", "translate(-100, 0)");
+
+        document.getElementById("dodecagon2-1").setAttribute("points", createDodecagon(30));
+        document.getElementById("dodecagon2-2").setAttribute("points", createDodecagon(30));
+        document.getElementById("dodecagon2-1").setAttribute("transform", "translate(100, 0)");
+        document.getElementById("dodecagon2-2").setAttribute("transform", "translate(-100, 0)");
+
+        document.getElementById("dodecagon3-1").setAttribute("points", createDodecagon(30));
+        document.getElementById("dodecagon3-2").setAttribute("points", createDodecagon(30));
+        document.getElementById("dodecagon3-1").setAttribute("transform", "translate(100, 0)");
+        document.getElementById("dodecagon3-2").setAttribute("transform", "translate(-100, 0)");
+    </script>
+</body>
+</html>
